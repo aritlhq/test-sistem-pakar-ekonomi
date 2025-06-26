@@ -1,0 +1,484 @@
+/* General Styling */
+:root {
+    --primary-color: #198754;
+    --primary-dark: #146c43;
+    --primary-light: #d1e7dd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #fcfcfc;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* Animated Section */
+  .animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+  
+  .animate__fadeIn {
+    animation-name: fadeIn;
+  }
+  
+  .animate__fadeInDown {
+    animation-name: fadeInDown;
+  }
+  
+  .animate__fadeInUp {
+    animation-name: fadeInUp;
+  }
+  
+  .animate__delay-1s {
+    animation-delay: 1s;
+  }
+  
+  .animate__delay-2s {
+    animation-delay: 2s;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 50px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  /* Dashboard Cards */
+  .dashboard-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .dashboard-card-body {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+  }
+  
+  .dashboard-card-icon {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+    opacity: 0.8;
+  }
+  
+  .dashboard-card-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dashboard-card-content p {
+    font-size: 1rem;
+    margin-bottom: 0;
+    opacity: 0.9;
+  }
+  
+  .dashboard-card-footer {
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: right;
+  }
+  
+  .dashboard-card-footer a {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  /* Counter Animation */
+  .counter {
+    font-weight: 700;
+  }
+  
+  /* Disease Cards */
+  .disease-card {
+    border-radius: 12px;
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  
+  .disease-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .disease-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  .disease-card .card-body {
+    padding: 1.5rem;
+  }
+  
+  .disease-card h5 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .disease-card p {
+    color: #6c757d;
+    font-size: 0.95rem;
+  }
+  
+  .card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    z-index: 1;
+  }
+  
+  /* Rating */
+  .rating {
+    font-size: 0.9rem;
+  }
+  
+  /* Diagnosis Form */
+  .diagnosis-form {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+  
+  .diagnosis-form .card-header {
+    border-bottom: none;
+  }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    border-radius: 0.5rem;
+    transition: opacity 0.3s ease;
+  }
+  
+  .text-green-custom {
+    color: var(--primary-color);
+  }
+  
+  .diagnosis-form img:hover + .img-overlay,
+  .img-overlay:hover {
+    opacity: 0.9;
+  }
+  
+  /* Gejala List */
+  .gejala-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .gejala-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .gejala-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  /* Testimonial Section */
+  .testimonial-section {
+    position: relative;
+  }
+  
+  .testimonial-item {
+    padding: 1.5rem;
+  }
+  
+  .testimonial-text {
+    font-style: italic;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+  
+  .carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  
+  /* FAQ Section */
+  .faq-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+  }
+  
+  .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+  }
+  
+  /* Newsletter Section */
+  .newsletter-section {
+    background-color: #f8f9fa;
+  }
+  
+  .newsletter-form .form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+  
+  .newsletter-form .btn {
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  /* Section Titles */
+  .section-title {
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--primary-color);
+  }
+  
+  /* Cart Styling */
+  .cart-badge {
+    font-size: 0.65rem;
+  }
+  
+  .cart-items {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .cart-item-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .cart-item-details {
+    flex: 1;
+  }
+  
+  .cart-item-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .cart-item-price {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  
+  .cart-item-remove {
+    color: var(--danger-color);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .cart-item-remove:hover {
+    transform: scale(1.2);
+  }
+  
+  .empty-cart {
+    color: #6c757d;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 767px) {
+    .dashboard-card-icon {
+      font-size: 2rem;
+    }
+    
+    .dashboard-card-content h3 {
+      font-size: 1.5rem;
+    }
+    
+    .testimonial-item {
+      padding: 1rem;
+    }
+    
+    .disease-card img {
+      height: 160px;
+    }
+    
+    .intro-section h1 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* Intro Section */
+  .intro-section {
+    background-color: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Chart Styles */
+  canvas {
+    max-width: 100%;
+  }
+
+  /* Footer */
+.footer {
+  background-color: #333;
+  color: #bbb;
+  padding: 70px 0 0;
+}
+
+.footer-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background-color: #4caf50;
+  border-radius: 2px;
+}
+
+.footer-links {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #bbb;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #4caf50;
+  padding-left: 5px;
+}
+
+.footer-contact {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-contact i {
+  color: #4caf50;
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 0;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}

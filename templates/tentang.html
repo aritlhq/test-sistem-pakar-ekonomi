@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Sistem Pakar Ekonomi</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/tentang.css">
+    <!-- Custom JS -->
+    <script src="../static/js/main.js" defer></script>
+    <script src="../static/js/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</head>
+
+<body>
+    <!-- HEADER / NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">
+                <i class="fas fa-chart-line me-2"></i>Sistem Pakar Ekonomi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i>Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('konsultasi') }}">
+                            <i class="fas fa-stethoscope me-1"></i>Konsultasi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('tentang') }}">
+                            <i class="fas fa-info-circle me-1"></i>Tentang
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white position-relative" href="#" data-bs-toggle="offcanvas"
+                            data-bs-target="#cartOffcanvas">
+                            <i class="fas fa-shopping-cart me-1"></i>Keranjang
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header bg-success text-white">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">
+                <i class="fas fa-shopping-cart me-2"></i>Keranjang Konsultasi
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="cart-items">
+                <!-- Cart items will be added dynamically -->
+                <div class="empty-cart text-center py-5">
+                    <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                    <p class="lead">Keranjang konsultasi Anda kosong</p>
+                    <a href="#diagnosis" class="btn btn-success btn-sm mt-2" data-bs-dismiss="offcanvas">
+                        Mulai Konsultasi
+                    </a>
+                </div>
+            </div>
+            <div class="cart-footer mt-3 d-none">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total Konsultasi:</span>
+                    <span class="fw-bold cart-total">0</span>
+                </div>
+                <button class="btn btn-success w-100 checkout-btn">
+                    <i class="fas fa-credit-card me-2"></i>Lanjutkan ke Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <h1 class="hero-title">Sistem Pakar <span class="text-gradient">Ekonomi</span></h1>
+                    <p class="hero-subtitle">Solusi digital dalam analisis dan pengambilan keputusan ekonomi secara cepat, tepat, dan berbasis pengetahuan ahli.</p>
+                    <div class="hero-badge">
+                        <span class="badge-item"><i class="bi bi-check-circle-fill"></i> Cepat</span>
+                        <span class="badge-item"><i class="bi bi-check-circle-fill"></i> Akurat</span>
+                        <span class="badge-item"><i class="bi bi-check-circle-fill"></i> Berbasis AI</span>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <img src="../static/img/ekonomi-digital.jpg" alt="Ilustrasi Ekonomi" class="hero-image">
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-badge">Tentang Kami</span>
+                <h2 class="section-title">Apa itu Sistem Pakar Ekonomi?</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="about-content">
+                        <p>
+                            <strong>Sistem Pakar Ekonomi</strong> adalah aplikasi berbasis web yang dirancang untuk membantu pengguna mengidentifikasi permasalahan ekonomi serta memberikan rekomendasi berdasarkan data dan pengetahuan dari para ahli ekonomi terkemuka.
+                        </p>
+                        <p>
+                            Sistem ini memanfaatkan metode <strong>Certainty Factor</strong> untuk mengukur tingkat keyakinan terhadap solusi yang diberikan, berdasarkan gejala atau kondisi ekonomi yang Anda pilih sebagai pengguna.
+                        </p>
+                        <div class="about-quote">
+                            <i class="bi bi-quote quote-icon"></i>
+                            <p>Keputusan ekonomi yang tepat dimulai dari analisis yang akurat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Analisis Mendalam</h4>
+                                <p>Diagnosis kondisi ekonomi makro dan mikro dari gejala yang Anda inputkan</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-lightbulb"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Rekomendasi Pakar</h4>
+                                <p>Saran berbasis pengetahuan yang disusun bersama ahli ekonomi</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-cpu"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Teknologi AI</h4>
+                                <p>Menggunakan metode AI untuk menghasilkan diagnosis yang akurat</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Keamanan Data</h4>
+                                <p>Semua data konsultasi terjamin keamanan dan kerahasiaannya</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="howworks-section">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-badge">Langkah Mudah</span>
+                <h2 class="section-title">Bagaimana Sistem Ini Bekerja?</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="timeline" data-aos="fade-up" data-aos-delay="200">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>Pilih Jenis Permasalahan</h4>
+                        <p>Pilih kategori dan gejala ekonomi yang Anda hadapi dari daftar yang tersedia</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>Analisis dengan Certainty Factor</h4>
+                        <p>Sistem menganalisis input Anda dengan metode Certainty Factor dari basis pengetahuan</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>Dapatkan Hasil Diagnosis</h4>
+                        <p>Hasil diagnosis dan rekomendasi ditampilkan secara instan dan dapat diunduh</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h4>Implementasikan Solusi</h4>
+                        <p>Terapkan rekomendasi solusi yang diberikan untuk mengatasi permasalahan ekonomi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goals Section -->
+    <section class="goals-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div class="section-header">
+                        <span class="section-badge">Tujuan Kami</span>
+                        <h2 class="section-title">Mengapa Kami Membuat Sistem Ini?</h2>
+                        <div class="section-divider"></div>
+                    </div>
+                    <p class="goals-desc">
+                        Sistem Pakar Ekonomi hadir dengan tujuan untuk demokratisasi pengetahuan ekonomi dan memudahkan pengambilan keputusan berbasis data yang biasanya hanya dapat dilakukan oleh pakar ekonomi.
+                    </p>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+                    <div class="goals-cards">
+                        <div class="goals-card">
+                            <div class="goals-icon">
+                                <i class="bi bi-rocket-takeoff"></i>
+                            </div>
+                            <h4>Mempermudah Konsultasi</h4>
+                            <p>Menyediakan akses terhadap konsultasi permasalahan ekonomi kapan saja dan di mana saja</p>
+                        </div>
+                        <div class="goals-card">
+                            <div class="goals-icon">
+                                <i class="bi bi-mortarboard"></i>
+                            </div>
+                            <h4>Edukasi Ekonomi</h4>
+                            <p>Meningkatkan literasi ekonomi masyarakat melalui penjelasan yang mudah dipahami</p>
+                        </div>
+                        <div class="goals-card">
+                            <div class="goals-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </div>
+                            <h4>Keputusan Berbasis Data</h4>
+                            <p>Menjadi media pembelajaran interaktif dalam pengambilan keputusan ekonomi</p>
+                        </div>
+                        <div class="goals-card">
+                            <div class="goals-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h4>Aksesibilitas Pakar</h4>
+                            <p>Memberikan solusi awal sebelum berkonsultasi langsung dengan pakar ekonomi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <span class="section-badge">Tim Kami</span>
+                <h2 class="section-title">Dikembangkan Oleh</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="team-info" data-aos="fade-up" data-aos-delay="200">
+                        <div class="team-logo">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+                        <h4>Tim Sistem Pakar Ekonomi</h4>
+                        <p>Universitas Pamulang - Fakultas Teknik Informatika</p>
+                        <p class="team-desc">
+                            Sistem ini dikembangkan sebagai Tugas Akhir mata kuliah Kecerdasan Buatan
+                            dengan bimbingan dari dosen dan pakar ekonomi untuk memastikan kualitas dan akurasi informasi.
+                        </p>
+                        <div class="copyright">
+                            <p>&copy; 2025 Sistem Pakar Ekonomi. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Siap untuk Mulai Konsultasi?</h2>
+                <p>Dapatkan diagnosis permasalahan ekonomi dan rekomendasi solusi yang tepat sekarang juga.</p>
+                <a href="{{ url_for('konsultasi') }}" class="cta-button">
+                    <i class="bi bi-stethoscope me-2"></i>Mulai Konsultasi
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Sistem Pakar Ekonomi</h5>
+                    <p>Aplikasi berbasis web untuk diagnosis permasalahan ekonomi dan rekomendasi solusi berbasis pengetahuan pakar.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Navigasi Cepat</h5>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('index') }}"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="{{ url_for('konsultasi') }}"><i class="bi bi-chevron-right"></i> Konsultasi</a></li>
+                        <li><a href="{{ url_for('tentang') }}"><i class="bi bi-chevron-right"></i> Tentang</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Kontak</h5>
+                    <ul class="footer-contact">
+                        <li><i class="bi bi-geo-alt"></i> Universitas Pamulang, Tangerang Selatan</li>
+                        <li><i class="bi bi-envelope"></i> info@sistempakarekonomiku.ac.id</li>
+                        <li><i class="bi bi-telephone"></i> +62 21 1234 5678</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sistem Pakar Ekonomi | Dikembangkan untuk Tugas Akhir - Kecerdasan Buatan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize AOS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init();
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

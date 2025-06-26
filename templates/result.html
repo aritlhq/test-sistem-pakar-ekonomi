@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pakar | Diagnosis Masalah Ekonomi</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+
+<body>
+    <!-- HEADER / NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">
+                <i class="fas fa-chart-line me-2"></i>Sistem Pakar Ekonomi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i>Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('konsultasi') }}">
+                            <i class="fas fa-stethoscope me-1"></i>Konsultasi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('tentang') }}">
+                            <i class="fas fa-info-circle me-1"></i>Tentang
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white position-relative" href="#" data-bs-toggle="offcanvas"
+                            data-bs-target="#cartOffcanvas">
+                            <i class="fas fa-shopping-cart me-1"></i>Keranjang
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="diagnosis-background">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Result Card -->
+                    <div class="diagnosis-card animate-fade-in">
+                        <div class="diagnosis-header">
+                            <h2><i class="fas fa-clipboard-check me-2"></i>Hasil Konsultasi Ekonomi Pribadi</h2>
+                            <p class="diagnosis-subtitle">Analisis berdasarkan informasi yang Anda berikan</p>
+                        </div>
+
+                        <div class="diagnosis-body">
+                            <!-- User Information Section -->
+                            <div class="user-info-section">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h3>Ringkasan Diagnosis</h3>
+                                        <div class="timestamp">
+                                            <i class="far fa-calendar-alt me-2"></i>Tanggal: <span id="current-date">{{
+                                                current_date or '22 Mei 2025' }}</span>
+                                        </div>
+                                        <div class="diagnosis-id">
+                                            <i class="fas fa-fingerprint me-2"></i>ID Diagnosis:
+                                            <span>{{ diagnosis_id or 'ECO-2505-7842' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-md-end">
+                                        <div class="result-actions">
+                                            <button class="btn btn-sm btn-outline-primary me-2"
+                                                onclick="window.print()">
+                                                <i class="fas fa-print me-1"></i>Cetak
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-success" onclick="downloadPDF()">
+                                                <i class="fas fa-download me-1"></i>Unduh PDF
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Symptoms Section -->
+                            <div class="section-divider"></div>
+
+                            <div class="symptoms-section">
+                                <h4><i class="fas fa-search me-2"></i>Masalah yang Anda Pilih</h4>
+                                <ul class="list-group symptoms-container">
+                                    {% if selected_symptoms %}
+                                    {% for symptom in selected_symptoms %}
+                                    <li class="list-group-item symptom-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle me-2 symptom-icon text-success"></i>
+                                        <span>{{ symptom }}</span>
+                                    </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li class="list-group-item symptom-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle me-2 symptom-icon text-success"></i>
+                                        <span>Kesulitan mengatur pengeluaran bulanan</span>
+                                    </li>
+                                    <li class="list-group-item symptom-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle me-2 symptom-icon text-success"></i>
+                                        <span>Tidak memiliki dana darurat</span>
+                                    </li>
+                                    <li class="list-group-item symptom-item d-flex align-items-center">
+                                        <i class="fas fa-check-circle me-2 symptom-icon text-success"></i>
+                                        <span>Pengeluaran melebihi pemasukan</span>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <!-- Analysis Results Section -->
+                            <div class="section-divider"></div>
+
+                            <div class="analysis-section">
+                                <h4><i class="fas fa-chart-pie me-2"></i>Hasil Analisis</h4>
+
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="diagnosis-result">
+                                            <div class="result-header">
+                                                <h5>Masalah Utama:
+                                                    <span class="text-danger">{{ diagnosis.main_issue if diagnosis else
+                                                        'Defisit Anggaran Bulanan' }}</span>
+                                                </h5>
+                                                <div class="certainty-badge">
+                                                    <span class="badge bg-danger">Kepastian: {{ diagnosis.certainty if
+                                                        diagnosis else '92' }}%</span>
+                                                </div>
+                                            </div>
+                                            <p class="result-description">
+                                                Berdasarkan gejala yang Anda pilih, sistem mengidentifikasi bahwa Anda
+                                                mengalami
+                                                <strong>{{ diagnosis.main_issue if diagnosis else 'Defisit Anggaran
+                                                    Bulanan' }}</strong> -
+                                                {{ diagnosis.description if diagnosis else 'Kondisi dimana pengeluaran
+                                                bulanan Anda melebihi pemasukan yang tersedia, memerlukan penyesuaian
+                                                segera dalam perencanaan keuangan.' }}
+                                            </p>
+
+                                            <div class="recommendations-container">
+                                                <h6><i class="fas fa-lightbulb me-2"></i>Rekomendasi Tindakan:</h6>
+
+                                                {% if diagnosis and diagnosis.recommendations %}
+                                                {% for rec in diagnosis.recommendations %}
+                                                <div class="recommendation-item">
+                                                    <div class="recommendation-badge">
+                                                        <i class="fas fa-check-circle"></i> Rekomendasi
+                                                    </div>
+                                                    <div class="recommendation-content">
+                                                        {{ rec }}
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="recommendation-item">
+                                                    <div class="recommendation-badge priority-tinggi">
+                                                        <i class="fas fa-exclamation-triangle"></i> Prioritas Tinggi
+                                                    </div>
+                                                    <div class="recommendation-content">
+                                                        <h6>Buat Anggaran Bulanan</h6>
+                                                        <p>Susun rencana anggaran bulanan yang detail dengan mencatat
+                                                            semua pemasukan dan pengeluaran. Prioritaskan kebutuhan
+                                                            pokok dan kurangi pengeluaran yang tidak penting.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="recommendation-item">
+                                                    <div class="recommendation-badge priority-sedang">
+                                                        <i class="fas fa-chart-line"></i> Prioritas Sedang
+                                                    </div>
+                                                    <div class="recommendation-content">
+                                                        <h6>Bangun Dana Darurat</h6>
+                                                        <p>Mulai menyisihkan 10-20% dari penghasilan untuk membangun
+                                                            dana darurat minimal 3-6 bulan pengeluaran bulanan.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="recommendation-item">
+                                                    <div class="recommendation-badge priority-rendah">
+                                                        <i class="fas fa-piggy-bank"></i> Prioritas Rendah
+                                                    </div>
+                                                    <div class="recommendation-content">
+                                                        <h6>Mulai Investasi Kecil</h6>
+                                                        <p>Setelah anggaran stabil, pertimbangkan untuk mulai
+                                                            berinvestasi dalam instrumen yang sesuai dengan profil
+                                                            risiko Anda.</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="chart-container">
+                                            <canvas id="diagnosisChart"
+                                                data-labels='{{ diagnosis.conditions|map(attribute="name")|list|tojson }}'
+                                                data-values='{{ diagnosis.conditions|map(attribute="value")|list|tojson }}'
+                                                data-levels='{{ diagnosis.conditions|map(attribute="level")|list|tojson }}'></canvas>
+                                            <p class="chart-caption">Distribusi Masalah Ekonomi</p>
+                                        </div>
+
+                                        <div class="condition-indicators">
+                                            {% if diagnosis and diagnosis.conditions %}
+                                            {% for cond in diagnosis.conditions %}
+                                            <div class="condition-item condition-{{ cond.level|lower }}">
+                                                <div class="condition-dot"></div>
+                                                <div class="condition-label">
+                                                    {{ cond.name }} ({{ cond.value }}%)
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+                                            <div class="condition-item condition-high">
+                                                <div class="condition-dot"></div>
+                                                <div class="condition-label">Defisit Anggaran (92%)</div>
+                                            </div>
+                                            <div class="condition-item condition-medium">
+                                                <div class="condition-dot"></div>
+                                                <div class="condition-label">Manajemen Utang (45%)</div>
+                                            </div>
+                                            <div class="condition-item condition-low">
+                                                <div class="condition-dot"></div>
+                                                <div class="condition-label">Perencanaan Investasi (28%)</div>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Related Resources Section -->
+                            <div class="section-divider"></div>
+
+                            <div class="resources-section">
+                                <h4><i class="fas fa-book me-2"></i>Sumber Daya Terkait</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="resource-card">
+                                            <div class="resource-icon">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </div>
+                                            <div class="resource-content">
+                                                <h6>Panduan Pembuatan Anggaran Pribadi</h6>
+                                                <p>Panduan langkah demi langkah untuk membuat anggaran yang sesuai
+                                                    dengan kebutuhan Anda.</p>
+                                                <a href="#" class="resource-link">Unduh PDF <i
+                                                        class="fas fa-arrow-right ms-1"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="resource-card">
+                                            <div class="resource-icon">
+                                                <i class="fas fa-video"></i>
+                                            </div>
+                                            <div class="resource-content">
+                                                <h6>Video: Strategi Dana Darurat</h6>
+                                                <p>Pelajari cara membangun dana darurat yang cukup untuk kebutuhan Anda.
+                                                </p>
+                                                <a href="#" class="resource-link">Tonton Video <i
+                                                        class="fas fa-arrow-right ms-1"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="diagnosis-footer">
+                                <div class="disclaimer">
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                    <span>
+                                        <strong>Disclaimer:</strong> Hasil ini bersifat rekomendasi. Untuk keputusan
+                                        finansial penting,
+                                        konsultasikan dengan perencana keuangan profesional.
+                                    </span>
+                                </div>
+                                <div class="action-buttons">
+                                    <button class="btn btn-light me-2" onclick="shareResult()">
+                                        <i class="fas fa-share-alt me-1"></i>Bagikan
+                                    </button>
+                                    <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                        <i class="fas fa-home me-1"></i>Kembali ke Beranda
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Sistem Pakar Ekonomi</h5>
+                    <p>Aplikasi berbasis web untuk diagnosis permasalahan ekonomi dan rekomendasi solusi berbasis
+                        pengetahuan pakar.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Navigasi Cepat</h5>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('index') }}"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="{{ url_for('konsultasi') }}"><i class="bi bi-chevron-right"></i> Konsultasi</a>
+                        </li>
+                        <li><a href="{{ url_for('tentang') }}"><i class="bi bi-chevron-right"></i> Tentang</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> FAQ</a></li>
+                        <li><a href="#"><i class="bi bi-chevron-right"></i> Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Kontak</h5>
+                    <ul class="footer-contact">
+                        <li><i class="bi bi-geo-alt"></i> Universitas Pamulang, Tangerang Selatan</li>
+                        <li><i class="bi bi-envelope"></i> info@sistempakarekonomiku.ac.id</li>
+                        <li><i class="bi bi-telephone"></i> +62 21 1234 5678</li>
+                    </ul>
+                    <div class="newsletter-form">
+                        <h6>Berlangganan Newsletter</h6>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Email Anda">
+                            <button class="btn btn-primary" type="button">Kirim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sistem Pakar Ekonomi | Dikembangkan untuk Tugas Akhir - Kecerdasan Buatan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+    <script src="{{ url_for('static', filename='js/diagnosis.js') }}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pakar | Diagnosis Masalah Ekonomi</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <!-- Custom JS -->
+    <script src="../static/js/main.js" defer></script>
+    <script src="../static/js/chart.js"></script>
+</head>
+
+<body>
+    <!-- HEADER / NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#">
+                <i class="fas fa-chart-line me-2"></i>Sistem Pakar Ekonomi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i>Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('konsultasi') }}">
+                            <i class="fas fa-stethoscope me-1"></i>Konsultasi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('tentang') }}">
+                            <i class="fas fa-info-circle me-1"></i>Tentang
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white position-relative" href="#" data-bs-toggle="offcanvas"
+                            data-bs-target="#cartOffcanvas">
+                            <i class="fas fa-shopping-cart me-1"></i>Keranjang
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header bg-success text-white">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">
+                <i class="fas fa-shopping-cart me-2"></i>Keranjang Konsultasi
+            </h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="cart-items">
+                <!-- Cart items will be added dynamically -->
+                <div class="empty-cart text-center py-5">
+                    <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                    <p class="lead">Keranjang konsultasi Anda kosong</p>
+                    <a href="#diagnosis" class="btn btn-success btn-sm mt-2" data-bs-dismiss="offcanvas">
+                        Mulai Konsultasi
+                    </a>
+                </div>
+            </div>
+            <div class="cart-footer mt-3 d-none">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total Konsultasi:</span>
+                    <span class="fw-bold cart-total">0</span>
+                </div>
+                <button class="btn btn-success w-100 checkout-btn">
+                    <i class="fas fa-credit-card me-2"></i>Lanjutkan ke Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bagian Welcome Diperbarui dengan Animasi -->
+    <section class="intro-section py-5 text-center border-bottom">
+        <div class="container">
+            <h1 class="display-5 fw-bold mb-3 animate__animated animate__fadeInDown">
+                <i class="fas fa-chart-line me-2"></i>MANAGEMENT MASALAH EKONOMI
+            </h1>
+            <p class="lead text-muted animate__animated animate__fadeIn animate__delay-1s">
+                Temukan solusi untuk permasalahan ekonomi Anda.<br>
+                Sistem ini dirancang menggunakan metode Certainty Factor untuk memberikan hasil diagnosis yang akurat
+                dan informatif.
+            </p>
+            <a href="#diagnosis"
+                class="btn btn-success btn-lg mt-4 px-5 animate__animated animate__fadeInUp animate__delay-2s">
+                <i class="fas fa-stethoscope me-2"></i>Mulai Konsultasi Sekarang
+            </a>
+        </div>
+    </section>
+
+    <!-- Dashboard Summary Cards -->
+    <section class="container my-5">
+        <div class="row g-4">
+            <!-- Dashboard Card 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card bg-success text-white">
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-card-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <h3 class="counter">50+</h3>
+                            <p>Pakar Ekonomi</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-footer">
+                        <a href="#" class="text-white">Lihat Detail <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Card 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card bg-info text-white">
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <h3 class="counter">1500+</h3>
+                            <p>Konsultasi</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-footer">
+                        <a href="#" class="text-white">Lihat Detail <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Card 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card bg-warning text-white">
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-card-icon">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <h3 class="counter">100+</h3>
+                            <p>Diagnosis</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-footer">
+                        <a href="#" class="text-white">Lihat Detail <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Card 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="dashboard-card bg-danger text-white">
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="dashboard-card-content">
+                            <h3 class="counter">5000+</h3>
+                            <p>Pengguna</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-footer">
+                        <a href="#" class="text-white">Lihat Detail <i class="fas fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="container my-5">
+        <h2 class="text-center mb-4 section-title">
+            <i class="fas fa-chart-pie me-2"></i>Statistik Ekonomi
+        </h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">Tren Masalah Ekonomi</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="trendsChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">Distribusi Masalah Ekonomi</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="distributionChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container container my-5">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-success section-title">
+                <i class="fas fa-search me-2"></i>Sistem Pakar Diagnosis Masalah Ekonomi
+            </h2>
+            <p class="text-muted">Mendeteksi masalah ekonomi pribadi atau bisnis dengan cepat dan akurat berdasarkan
+                gejala yang Anda
+                lihat.</p>
+        </div>
+
+        <!-- Card Section -->
+        <div class="row g-4 mb-5">
+            <!-- Kartu 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="disease-card shadow-sm h-100">
+                    <div class="card-badge">Popular</div>
+                    <img src="../static/img/kelayakan pinjaman.jpg" alt="Kelayakan Pinjaman">
+                    <div class="card-body">
+                        <h5><i class="fas fa-credit-card me-2"></i>Kelayakan Pinjaman</h5>
+                        <div class="rating mb-2">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                            <span class="ms-1">(4.5)</span>
+                        </div>
+                        <p>Analisis kelayakan pinjaman berdasarkan kondisi finansial Anda.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="#" target="_blank" class="btn btn-success">
+                                <i class="fas fa-info-circle me-1"></i>Selengkapnya
+                            </a>
+                            <button class="btn btn-outline-success add-to-cart" data-id="1"
+                                data-name="Kelayakan Pinjaman" data-price="150000">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartu 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="disease-card shadow-sm h-100">
+                    <img src="../static/img/investasi.jpg" alt="Investasi">
+                    <div class="card-body">
+                        <h5><i class="fas fa-chart-line me-2"></i>Investasi</h5>
+                        <div class="rating mb-2">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="far fa-star text-warning"></i>
+                            <span class="ms-1">(4.0)</span>
+                        </div>
+                        <p>Rekomendasi investasi berdasarkan profil risiko dan tujuan finansial Anda.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="#" target="_blank" class="btn btn-success">
+                                <i class="fas fa-info-circle me-1"></i>Selengkapnya
+                            </a>
+                            <button class="btn btn-outline-success add-to-cart" data-id="2" data-name="Investasi"
+                                data-price="200000">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kartu 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="disease-card shadow-sm h-100">
+                    <div class="card-badge bg-danger">New</div>
+                    <img src="../static/img/anggaran.jpg" alt="Pengelolaan Anggaran">
+                    <div class="card-body">
+                        <h5><i class="fas fa-wallet me-2"></i>Pengelolaan Anggaran</h5>
+                        <div class="rating mb-2">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="ms-1">(5.0)</span>
+                        </div>
+                        <p>Rekomendasi untuk pengelolaan anggaran pribadi atau bisnis.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="#" target="_blank" class="btn btn-success">
+                                <i class="fas fa-info-circle me-1"></i>Selengkapnya
+                            </a>
+                            <button class="btn btn-outline-success add-to-cart" data-id="3"
+                                data-name="Pengelolaan Anggaran" data-price="175000">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Section -->
+        <section class="testimonial-section my-5 py-5 bg-light rounded-4">
+            <div class="container">
+                <h2 class="text-center mb-5 section-title">
+                    <i class="fas fa-quote-left me-2"></i>Testimoni Pengguna
+                </h2>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <!-- Testimonial 1 -->
+                                <div class="carousel-item active">
+                                    <div class="testimonial-item text-center">
+                                        <img src="https://api.placeholder.com/100/100" class="rounded-circle mb-3"
+                                            alt="User 1" width="80" height="80">
+                                        <h5>Budi Santoso</h5>
+                                        <p class="text-muted mb-3">Pengusaha UMKM</p>
+                                        <div class="rating mb-3">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        </div>
+                                        <p class="testimonial-text">"Sistem pakar ini sangat membantu saya mengelola
+                                            keuangan UMKM dengan lebih efisien. Rekomendasinya tepat sasaran dan mudah
+                                            diimplementasikan."</p>
+                                    </div>
+                                </div>
+                                <!-- Testimonial 2 -->
+                                <div class="carousel-item">
+                                    <div class="testimonial-item text-center">
+                                        <img src="https://api.placeholder.com/100/100" class="rounded-circle mb-3"
+                                            alt="User 2" width="80" height="80">
+                                        <h5>Rina Wulandari</h5>
+                                        <p class="text-muted mb-3">Mahasiswa Ekonomi</p>
+                                        <div class="rating mb-3">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="far fa-star text-warning"></i>
+                                        </div>
+                                        <p class="testimonial-text">"Saya menggunakan sistem pakar ini untuk membantu
+                                            analisis tugas akhir. Datanya akurat dan rekomendasi investasi sangat
+                                            membantu untuk studi kasus saya."</p>
+                                    </div>
+                                </div>
+                                <!-- Testimonial 3 -->
+                                <div class="carousel-item">
+                                    <div class="testimonial-item text-center">
+                                        <img src="https://api.placeholder.com/100/100" class="rounded-circle mb-3"
+                                            alt="User 3" width="80" height="80">
+                                        <h5>Ahmad Hidayat</h5>
+                                        <p class="text-muted mb-3">Profesional Keuangan</p>
+                                        <div class="rating mb-3">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        </div>
+                                        <p class="testimonial-text">"Interface yang intuitif dan hasil diagnosis yang
+                                            mendalam. Sangat membantu klien saya memahami masalah keuangan mereka dengan
+                                            pendekatan yang sistematis."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <div class="carousel-indicators position-relative mt-4">
+                                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0"
+                                    class="active bg-success" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"
+                                    class="bg-success" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"
+                                    class="bg-success" aria-label="Slide 3"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagnosis Form -->
+        <div class="card diagnosis-form shadow-lg border-0" id="diagnosis">
+            <div class="card-header bg-success text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-stethoscope me-2"></i>Form Diagnosis Masalah Ekonomi
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-5 mb-4 mb-md-0">
+                        <div class="position-relative">
+                            <img src="../static/img/L.avif"
+                                class="img-fluid rounded-4 border border-success shadow" alt="Ekonomi">
+                            <div class="img-overlay">
+                                <i class="fas fa-search-dollar fa-3x text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <h4 class="text-green-custom fw-bold mb-3">
+                            <i class="fas fa-clipboard-check me-2"></i>Diagnosa Sekarang
+                        </h4>
+                        <p class="lead">Pilih masalah ekonomi yang Anda hadapi, kemudian klik tombol
+                            <strong>Diagnosis</strong> untuk mendapatkan solusi.
+                        </p>
+                        <form action="{{ url_for('perform_diagnosis') }}" method="post" class="diagnosis-form">
+                            <div class="gejala-list mt-3">
+                                {{ gejala_html|safe }}
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                    <i class="fas fa-search me-2"></i>Diagnosis
+                                </button>
+                                <button type="button" class="btn btn-outline-success">
+                                    <i class="fas fa-save me-2"></i>Simpan untuk Nanti
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section my-5">
+            <h2 class="text-center mb-4 section-title">
+                <i class="fas fa-question-circle me-2"></i>Pertanyaan Umum
+            </h2>
+            <div class="accordion" id="faqAccordion">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeading1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                            <i class="fas fa-question-circle me-2 text-success"></i>
+                            Bagaimana sistem pakar ini bekerja?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Sistem pakar ini menggunakan metode Certainty Factor untuk menganalisis masalah ekonomi
+                            berdasarkan gejala atau indikator yang Anda masukkan. Sistem akan menghitung tingkat
+                            kepastian dan memberikan rekomendasi solusi yang sesuai dengan tingkat keyakinan tertinggi.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeading2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                            <i class="fas fa-question-circle me-2 text-success"></i>
+                            Berapa biaya untuk menggunakan layanan ini?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Kami menyediakan paket konsultasi dengan berbagai tingkatan harga. Paket dasar dimulai dari
+                            Rp150.000 untuk satu sesi konsultasi. Untuk informasi lebih lanjut tentang paket yang
+                            tersedia, silakan kunjungi halaman Harga kami.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeading3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                            <i class="fas fa-question-circle me-2 text-success"></i>
+                            Apakah data saya aman?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Ya, keamanan data adalah prioritas utama kami. Semua informasi yang Anda berikan dienkripsi
+                            dan disimpan dengan aman. Kami tidak akan membagikan data Anda kepada pihak ketiga tanpa
+                            persetujuan Anda.
+                        </div>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faqHeading4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                            <i class="fas fa-question-circle me-2 text-success"></i>
+                            Siapa pakar di balik sistem ini?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4"
+                        data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Sistem pakar kami didukung oleh tim ekonom berpengalaman dan profesional keuangan dengan
+                            pengalaman lebih dari 10 tahun di industri. Tim kami terdiri dari dosen ekonomi, konsultan
+                            keuangan, dan praktisi bisnis yang memahami kondisi ekonomi di Indonesia.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscribe Newsletter -->
+        <section class="newsletter-section my-5 py-5 bg-light rounded-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h3 class="mb-4">
+                            <i class="fas fa-envelope-open-text me-2"></i>Berlangganan Newsletter
+                        </h3>
+                        <p class="text-muted mb-4">Dapatkan tips ekonomi dan update terbaru langsung ke email Anda</p>
+                        <form class="newsletter-form">
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control" placeholder="Masukkan email Anda" required>
+                                <button class="btn btn-success" type="submit">Berlangganan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Sistem Pakar Ekonomi</h5>
+                    <p>Aplikasi berbasis web untuk diagnosis permasalahan ekonomi dan rekomendasi solusi berbasis
+                        pengetahuan pakar.</p>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="footer-title">Navigasi Cepat</h5>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('index') }}"><i class="bi bi-chevron-right"></i> Beranda</a></li>
+                        <li><a href="{{ url_for('konsultasi') }}"><i class="bi bi-chevron-right"></i> Konsultasi</a>
+                        </li>
+                        <li><a href="{{ url_for('tentang') }}"><i class="bi bi-chevron-right"></i> Tentang</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Kontak</h5>
+                    <ul class="footer-contact">
+                        <li><i class="bi bi-geo-alt"></i> Universitas Pamulang, Tangerang Selatan</li>
+                        <li><i class="bi bi-envelope"></i> info@sistempakarekonomiku.ac.id</li>
+                        <li><i class="bi bi-telephone"></i> +62 21 1234 5678</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sistem Pakar Ekonomi | Dikembangkan untuk Tugas Akhir - Kecerdasan Buatan</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/main.js"></script> <!-- Letakkan script JS kamu di sini -->
+    </div>
+    </div>
+</body>
+
+</html>
