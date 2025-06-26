@@ -3,10 +3,10 @@
 Proyek ini adalah aplikasi web sederhana berbasis **Flask (Python)** yang dirancang untuk menerapkan konsep sistem pakar dalam konteks ekonomi. Aplikasi ini dapat diakses melalui browser dan menampilkan antarmuka berbasis HTML, CSS, dan JavaScript.
 
 Kelompok 1:
-- Muhammad Faqih Alharits
-- Hanif Maulana Ar Rasyid
-- Firza Aditiya Ardiansah
-- Rify Firmansyah
+- Hanif Maulana Ar Rasyid - [Github](https://github.com/manap01)
+- Muhammad Faqih Alharits - [Github](https://github.com/aritlhq) 
+- Firza Aditiya Ardiansah - [Github](https://github.com/firzaaditiya)
+- Rifky Firmansyah - [Github](https://github.com/Rifkyyyyyyyy)
 - .... (2 orang sisanya pada afk)
 
 ## 📁 Struktur Proyek
