@@ -2,6 +2,13 @@
 
 Proyek ini adalah aplikasi web sederhana berbasis **Flask (Python)** yang dirancang untuk menerapkan konsep sistem pakar dalam konteks ekonomi. Aplikasi ini dapat diakses melalui browser dan menampilkan antarmuka berbasis HTML, CSS, dan JavaScript.
 
+Kelompok 1:
+- Muhammad Faqih Alharits
+- Hanif Maulana Ar Rasyid
+- Firza Aditiya Ardiansah
+- Rify Firmansyah
+- .... (2 orang sisanya pada afk)
+
 ## 📁 Struktur Proyek
 
 ```
@@ -27,7 +34,7 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal:
 ### 1. Clone repositori
 
 ```bash
-git clone https://github.com/aritlhq/SISTEM-PAKAR-EKONOMI.git
+git clone https://github.com/aritlhq/test-sistem-pakar-ekonomi
 cd SISTEM-PAKAR-EKONOMI
 ```
 
