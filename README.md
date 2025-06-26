@@ -35,7 +35,7 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal:
 
 ```bash
 git clone https://github.com/aritlhq/test-sistem-pakar-ekonomi
-cd SISTEM-PAKAR-EKONOMI
+cd test-sistem-pakar-ekonomi
 ```
 
 ### 2. Aktifkan Virtual Environment
